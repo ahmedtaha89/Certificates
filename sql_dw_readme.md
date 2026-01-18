@@ -116,4 +116,78 @@ SELECT
     COUNT(DISTINCT f.CustomerID) AS UniqueCustomers
 FROM FactSales f
 JOIN DimDate d ON f.DateKey = d.DateKey
-JOIN DimProduct p
+JOIN DimProduct p ON f.ProductKey = p.ProductKey
+WHERE d.Year = 2024
+GROUP BY d.Year, d.Month, p.ProductCategory
+ORDER BY d.Year, d.Month;
+```
+
+## Best Practices
+
+- Always backup your database before running new scripts
+- Review and test scripts in a development environment first
+- Document any customizations or modifications
+- Maintain data lineage and audit trails
+- Implement proper error handling in ETL processes
+- Schedule regular data quality checks
+
+## Performance Optimization
+
+- Create appropriate indexes on fact and dimension tables
+- Use columnstore indexes for large fact tables
+- Implement table partitioning for historical data
+- Optimize ETL batch sizes
+- Monitor query execution plans
+
+## Maintenance
+
+### Regular Tasks
+
+- Update statistics on tables
+- Rebuild fragmented indexes
+- Archive old data as needed
+- Monitor disk space and database growth
+- Review and optimize slow-running queries
+
+### Data Refresh
+
+ETL processes can be scheduled using SQL Server Agent jobs to keep the warehouse updated with fresh data from source systems.
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: Slow query performance
+- **Solution**: Check execution plans, add missing indexes, update statistics
+
+**Issue**: ETL failures
+- **Solution**: Review error logs, validate source data quality, check connectivity
+
+**Issue**: Data inconsistencies
+- **Solution**: Run validation tests, verify referential integrity, check SCD logic
+
+## Contributing
+
+Contributions are welcome! If you'd like to improve this project:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request with a clear description
+
+## License
+
+This project is open source and available for educational and commercial use.
+
+## Contact
+
+For questions, issues, or suggestions, please open an issue on the GitHub repository.
+
+## Acknowledgments
+
+Built with T-SQL and following data warehousing best practices from industry leaders like Ralph Kimball and Bill Inmon.
+
+---
+
+**Note**: This is a template README. Customize it based on your specific implementation details, business requirements, and data sources.
